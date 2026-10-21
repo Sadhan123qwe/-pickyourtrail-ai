@@ -1,0 +1,123 @@
+{
+  "scale": 200,
+  "rows": {
+    "trips": 9447,
+    "leads": 9447,
+    "support_tickets": 4422,
+    "support_messages": 8442,
+    "conversations": 9648,
+    "conversation_messages": 17085,
+    "follow_ups": 7638,
+    "itineraries": 7437,
+    "booking_handoffs": 2010,
+    "audit_events": 201
+  },
+  "before": {
+    "leads list (newest, page 1)": {
+      "ms": 0.06,
+      "plan": "SCAN l USING INDEX idx_leads_created | SEARCH u USING INDEX sqlite_autoindex_users_1 (id=?) | SEARCH t USING INDEX sqlite_autoindex_trips_1 (id=?)"
+    },
+    "leads count by stage": {
+      "ms": 0.04,
+      "plan": "SEARCH l USING COVERING INDEX idx_leads_stage (stage=?)"
+    },
+    "global search leads (LIKE, newest 5)": {
+      "ms": 3.49,
+      "plan": "SCAN leads | USE TEMP B-TREE FOR ORDER BY"
+    },
+    "trips list all (recent, page 1)": {
+      "ms": 0.96,
+      "plan": "SCAN t | USE TEMP B-TREE FOR ORDER BY"
+    },
+    "customer's own trips": {
+      "ms": 0.45,
+      "plan": "SEARCH t USING INDEX idx_trips_user (user_id=?) | USE TEMP B-TREE FOR ORDER BY"
+    },
+    "guest's own trips": {
+      "ms": 0.28,
+      "plan": "SEARCH t USING INDEX idx_trips_anon (anon_id=?) | USE TEMP B-TREE FOR ORDER BY"
+    },
+    "customer's own tickets": {
+      "ms": 0.29,
+      "plan": "SEARCH t USING INDEX idx_tickets_owner (user_id=?) | USE TEMP B-TREE FOR ORDER BY"
+    },
+    "tickets for a trip": {
+      "ms": 0.21,
+      "plan": "SCAN support_tickets"
+    },
+    "leads for a guest customer": {
+      "ms": 0.37,
+      "plan": "SCAN x USING INDEX idx_leads_created"
+    },
+    "handoffs created in last 30d": {
+      "ms": 0.17,
+      "plan": "SCAN booking_handoffs"
+    },
+    "itineraries per day (series)": {
+      "ms": 9.75,
+      "plan": "SCAN itineraries | USE TEMP B-TREE FOR GROUP BY"
+    },
+    "customers summary (OLD correlated OR)": {
+      "ms": 331.75,
+      "plan": "MERGE (UNION ALL) | LEFT | SCAN u | CORRELATED SCALAR SUBQUERY 8 | MULTI-INDEX OR | INDEX 1 | SEARCH t USING INDEX idx_trips_user (user_id=?) | INDEX 2 | SEARCH t USING INDEX idx_trips_anon (anon_id=?) | CORRELATED SCALAR SUBQUERY 4 | MULTI-INDEX OR | INDEX 1 | SEARCH t USING INDEX idx_trips_user (user_id=?) | INDEX 2 | SEARCH t USING INDEX idx_trips_anon (anon_id=?) | CORRELATED SCALAR SUBQUERY 5 | SCAN l USING INDEX idx_leads_open_dedup | CORRELATED SCALAR SUBQUERY 6 | MULTI-INDEX OR | INDEX 1 | SEARCH s USING INDEX idx_tickets_owner (user_id=?) | INDEX 2 | SEARCH s USING INDEX idx_tickets_owner (user_id=? AND anon_id=?) | CORRELATED SCALAR SUBQUERY 7 | SCAN l USING INDEX idx_leads_open_dedup | USE TEMP B-TREE FOR ORDER BY | RIGHT | CO-ROUTINE guests | SCAN l | USE TEMP B-TREE FOR GROUP BY | SCAN g | CORRELATED SCALAR SUBQUERY 8 | MULTI-INDEX OR | INDEX 1 | SEARCH t USING INDEX idx_trips_user (user_id=?) | INDEX 2 | SEARCH t USING INDEX idx_trips_anon (anon_id=?) | CORRELATED SCALAR SUBQUERY 4 | MULTI-INDEX OR | INDEX 1 | SEARCH t USING INDEX idx_trips_user (user_id=?) | INDEX 2 | SEARCH t USING INDEX idx_trips_anon (anon_id=?) | CORRELATED SCALAR SUBQUERY 5 | SCAN l USING INDEX idx_leads_open_dedup | CORRELATED SCALAR SUBQUERY 6 | MULTI-INDEX OR | INDEX 1 | SEARCH s USING INDEX idx_tickets_owner (user_id=?) | INDEX 2 | SEARCH s USING INDEX idx_tickets_owner (user_id=? AND anon_id=?) | CORRELATED SCALAR SUBQUERY 7 | SCAN l USING INDEX idx_leads_open_dedup | USE TEMP B-TREE FOR ORDER BY"
+    },
+    "customers summary (NEW set-based)": {
+      "ms": 20.34,
+      "plan": "MERGE (UNION ALL) | LEFT | MATERIALIZE trip_agg | SCAN trips | USE TEMP B-TREE FOR GROUP BY | MATERIALIZE lead_agg | SCAN leads USING INDEX idx_leads_open_dedup | USE TEMP B-TREE FOR GROUP BY | MATERIALIZE ticket_agg | SCAN support_tickets | USE TEMP B-TREE FOR GROUP BY | SCAN u | SEARCH ta USING AUTOMATIC COVERING INDEX (key=?) | SEARCH la USING AUTOMATIC COVERING INDEX (key=?) | SEARCH tk USING AUTOMATIC COVERING INDEX (key=?) | USE TEMP B-TREE FOR ORDER BY | RIGHT | CO-ROUTINE guests | SCAN l | USE TEMP B-TREE FOR GROUP BY | SCAN g | SEARCH ta USING AUTOMATIC COVERING INDEX (key=?) | SEARCH la USING AUTOMATIC COVERING INDEX (key=?) | SEARCH tk USING AUTOMATIC COVERING INDEX (key=?) | USE TEMP B-TREE FOR ORDER BY"
+    }
+  },
+  "after": {
+    "leads list (newest, page 1)": {
+      "ms": 0.06,
+      "plan": "SCAN l USING INDEX idx_leads_created | SEARCH u USING INDEX sqlite_autoindex_users_1 (id=?) | SEARCH t USING INDEX sqlite_autoindex_trips_1 (id=?)"
+    },
+    "leads count by stage": {
+      "ms": 0.04,
+      "plan": "SEARCH l USING COVERING INDEX idx_leads_stage (stage=?)"
+    },
+    "global search leads (LIKE, newest 5)": {
+      "ms": 0.01,
+      "plan": "SCAN leads USING INDEX idx_leads_updated"
+    },
+    "trips list all (recent, page 1)": {
+      "ms": 0.04,
+      "plan": "SCAN t USING INDEX idx_trips_updated"
+    },
+    "customer's own trips": {
+      "ms": 0.21,
+      "plan": "SEARCH t USING INDEX idx_trips_user_updated (user_id=?)"
+    },
+    "guest's own trips": {
+      "ms": 0.2,
+      "plan": "SEARCH t USING INDEX idx_trips_anon_updated (anon_id=?)"
+    },
+    "customer's own tickets": {
+      "ms": 0.22,
+      "plan": "SEARCH t USING INDEX idx_tickets_user_updated (user_id=?)"
+    },
+    "tickets for a trip": {
+      "ms": 0.01,
+      "plan": "SEARCH support_tickets USING INDEX idx_tickets_trip (trip_id=?)"
+    },
+    "leads for a guest customer": {
+      "ms": 0.07,
+      "plan": "SEARCH x USING INDEX idx_leads_owner (user_id=? AND anon_id=?) | USE TEMP B-TREE FOR ORDER BY"
+    },
+    "handoffs created in last 30d": {
+      "ms": 0.01,
+      "plan": "SEARCH booking_handoffs USING COVERING INDEX idx_handoffs_created (created_at>?)"
+    },
+    "itineraries per day (series)": {
+      "ms": 0.13,
+      "plan": "SEARCH itineraries USING COVERING INDEX idx_itineraries_created (created_at>?) | USE TEMP B-TREE FOR GROUP BY"
+    },
+    "customers summary (OLD correlated OR)": {
+      "ms": 68.91,
+      "plan": "MERGE (UNION ALL) | LEFT | SCAN u | CORRELATED SCALAR SUBQUERY 8 | SEARCH t USING INDEX idx_trips_updated | CORRELATED SCALAR SUBQUERY 4 | MULTI-INDEX OR | INDEX 1 | SEARCH t USING INDEX idx_trips_user (user_id=?) | INDEX 2 | SEARCH t USING INDEX idx_trips_anon (anon_id=?) | CORRELATED SCALAR SUBQUERY 5 | MULTI-INDEX OR | INDEX 1 | SEARCH l USING INDEX idx_leads_owner (user_id=?) | INDEX 2 | SEARCH l USING INDEX idx_leads_owner (user_id=? AND anon_id=?) | CORRELATED SCALAR SUBQUERY 6 | SCAN s | CORRELATED SCALAR SUBQUERY 7 | MULTI-INDEX OR | INDEX 1 | SEARCH l USING INDEX idx_leads_owner (user_id=?) | INDEX 2 | SEARCH l USING INDEX idx_leads_owner (user_id=? AND anon_id=?) | USE TEMP B-TREE FOR ORDER BY | RIGHT | CO-ROUTINE guests | SEARCH l USING INDEX idx_leads_owner (user_id=? AND anon_id>?) | SCAN g | CORRELATED SCALAR SUBQUERY 8 | SEARCH t USING INDEX idx_trips_updated | CORRELATED SCALAR SUBQUERY 4 | MULTI-INDEX OR | INDEX 1 | SEARCH t USING INDEX idx_trips_user (user_id=?) | INDEX 2 | SEARCH t USING INDEX idx_trips_anon (anon_id=?) | CORRELATED SCALAR SUBQUERY 5 | MULTI-INDEX OR | INDEX 1 | SEARCH l USING INDEX idx_leads_owner (user_id=?) | INDEX 2 | SEARCH l USING INDEX idx_leads_owner (user_id=? AND anon_id=?) | CORRELATED SCALAR SUBQUERY 6 | SCAN s | CORRELATED SCALAR SUBQUERY 7 | MULTI-INDEX OR | INDEX 1 | SEARCH l USING INDEX idx_leads_owner (user_id=?) | INDEX 2 | SEARCH l USING INDEX idx_leads_owner (user_id=? AND anon_id=?) | USE TEMP B-TREE FOR ORDER BY"
+    },
+    "customers summary (NEW set-based)": {
+      "ms": 18.31,
+      "plan": "MERGE (UNION ALL) | LEFT | MATERIALIZE trip_agg | SCAN trips | USE TEMP B-TREE FOR GROUP BY | MATERIALIZE lead_agg | SCAN leads USING INDEX idx_leads_open_dedup | USE TEMP B-TREE FOR GROUP BY | MATERIALIZE ticket_agg | SCAN support_tickets | USE TEMP B-TREE FOR GROUP BY | SCAN u | SEARCH ta USING AUTOMATIC COVERING INDEX (key=?) | SEARCH la USING AUTOMATIC COVERING INDEX (key=?) | SEARCH tk USING AUTOMATIC COVERING INDEX (key=?) | USE TEMP B-TREE FOR ORDER BY | RIGHT | CO-ROUTINE guests | SEARCH l USING INDEX idx_leads_owner (user_id=? AND anon_id>?) | SCAN g | SEARCH ta USING AUTOMATIC COVERING INDEX (key=?) | SEARCH la USING AUTOMATIC COVERING INDEX (key=?) | SEARCH tk USING AUTOMATIC COVERING INDEX (key=?) | USE TEMP B-TREE FOR ORDER BY"
+    }
+  }
+}

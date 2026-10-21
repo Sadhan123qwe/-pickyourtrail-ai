@@ -1,0 +1,189 @@
+@import "tailwindcss";
+
+/*
+ * Pickyourtrail AI design system — lavender / chartreuse / tomato on navy and white.
+ * Brand colours: lavender #CBB3EB (brand surfaces, selection), chartreuse #D4FF3F
+ * (AI actions, send, progress — always with navy text), tomato #E34234 (urgent
+ * accents). "Ink" shades are darker derivatives used only where text must meet
+ * WCAG contrast on white (lavender and chartreuse are too light for text).
+ * Glass: reading surfaces stay 90%+ opaque; blur only on chrome and panels.
+ */
+:root {
+  --background: #f7f6fc;
+  --surface: #ffffff;
+  --surface-muted: #f3f1f8;
+  --foreground: #191936;
+  --muted: #696a91;
+  --border: #e6ddf5;
+  --glass-border: rgba(203, 179, 235, 0.34);
+
+  /* Brand */
+  --lavender: #cbb3eb;
+  --lavender-surface: #f1eafb;
+  --chartreuse: #d4ff3f;
+  --chartreuse-hover: #c4f02a;
+  --tomato: #e34234;
+
+  /* Interactive ink (links, focus, selected text): deep lavender. */
+  --primary: #5b3fa0;
+  --primary-hover: #4a3285;
+  --primary-soft: #f1eafb;
+
+  /* AI: chartreuse fills, olive ink for AI text on white. */
+  --accent: #4a6400;
+  --accent-soft: #f4ffd2;
+
+  --success: #16865d;
+  --success-soft: #e6f4ee;
+  --warning: #a35b00;
+  --warning-soft: #fdf2e1;
+  --danger: #c93232;
+  --danger-soft: #fdecea;
+  --ring: #8b6cc9;
+
+  --nav: #19172f;
+  --nav-deep: #17152f;
+  --nav-hover: rgba(203, 179, 235, 0.08);
+  --nav-active: rgba(203, 179, 235, 0.18);
+  --nav-text: #cfc8e8;
+  --nav-muted: #8a86ad;
+
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 22px;
+  --shadow-soft: 0 8px 28px rgba(60, 42, 100, 0.07);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-surface-muted: var(--surface-muted);
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-border: var(--border);
+  --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
+  --color-primary-soft: var(--primary-soft);
+  --color-accent: var(--accent);
+  --color-accent-soft: var(--accent-soft);
+  --color-success: var(--success);
+  --color-success-soft: var(--success-soft);
+  --color-warning: var(--warning);
+  --color-warning-soft: var(--warning-soft);
+  --color-danger: var(--danger);
+  --color-danger-soft: var(--danger-soft);
+  --color-ring: var(--ring);
+  --color-nav: var(--nav);
+  --color-nav-deep: var(--nav-deep);
+  --color-nav-hover: var(--nav-hover);
+  --color-nav-active: var(--nav-active);
+  --color-nav-text: var(--nav-text);
+  --color-nav-muted: var(--nav-muted);
+  --color-lavender: var(--lavender);
+  --color-lavender-surface: var(--lavender-surface);
+  --color-ai: var(--chartreuse);
+  --color-ai-hover: var(--chartreuse-hover);
+  --color-tomato: var(--tomato);
+  --font-sans: var(--font-inter);
+  --font-mono: var(--font-geist-mono);
+}
+
+html {
+  color-scheme: light;
+}
+
+body {
+  color: var(--foreground);
+  font-family: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  font-size: 14px;
+  /* Soft lavender washes (and a hint of chartreuse) for the glass to sit on. */
+  background:
+    radial-gradient(1100px 520px at 88% -12%, rgba(203, 179, 235, 0.32), transparent 62%),
+    radial-gradient(800px 420px at 4% 2%, rgba(203, 179, 235, 0.18), transparent 60%),
+    radial-gradient(600px 300px at 60% 110%, rgba(212, 255, 63, 0.08), transparent 60%),
+    var(--background);
+  background-attachment: fixed;
+}
+
+:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
+/* ---- Controlled glass ------------------------------------------------- */
+/* Primary reading surfaces: ~94% opaque. */
+.surface {
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--shadow-soft);
+  backdrop-filter: blur(12px) saturate(140%);
+  -webkit-backdrop-filter: blur(12px) saturate(140%);
+}
+/* Secondary panels and chrome: lighter, more translucent. */
+.glass {
+  background: rgba(250, 247, 255, 0.78);
+  border: 1px solid var(--glass-border);
+  box-shadow: 0 4px 18px rgba(60, 42, 100, 0.05);
+  backdrop-filter: blur(14px) saturate(150%);
+  -webkit-backdrop-filter: blur(14px) saturate(150%);
+}
+/* Glass on the dark navy chrome (selected nav, sidebar cards). */
+.glass-dark {
+  background: rgba(203, 179, 235, 0.07);
+  border: 1px solid rgba(203, 179, 235, 0.16);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+/* Subtle AI accent edge for AI-generated content. */
+.ai-edge {
+  background:
+    linear-gradient(var(--surface), var(--surface)) padding-box,
+    linear-gradient(135deg, rgba(203, 179, 235, 0.9), rgba(212, 255, 63, 0.85)) border-box;
+  border: 1px solid transparent;
+}
+
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .surface { background: #ffffff; }
+  .glass { background: rgba(255, 255, 255, 0.96); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -400px 0; }
+  100% { background-position: 400px 0; }
+}
+.skeleton {
+  background: linear-gradient(90deg, #efe9f8 0%, #f9f7fd 50%, #efe9f8 100%);
+  background-size: 800px 100%;
+  animation: shimmer 1.4s linear infinite;
+  border-radius: 0.5rem;
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.35; }
+}
+.pulse-dot { animation: pulse-dot 1.6s ease-in-out infinite; }
+
+@keyframes toast-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: none; }
+}
+.toast-in { animation: toast-in 160ms ease-out; }
+
+@keyframes typing {
+  0%, 80%, 100% { opacity: 0.25; }
+  40% { opacity: 1; }
+}
+.typing-dot { animation: typing 1.2s infinite ease-in-out; }
+.typing-dot:nth-child(2) { animation-delay: 0.15s; }
+.typing-dot:nth-child(3) { animation-delay: 0.3s; }
+
+@keyframes voice-spin {
+  to { transform: rotate(360deg); }
+}
+/* Only used for the real "thinking" / "connecting" voice states. */
+.voice-spin { animation: voice-spin 2.4s linear infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  .skeleton, .pulse-dot, .toast-in, .typing-dot, .voice-spin { animation: none; }
+}

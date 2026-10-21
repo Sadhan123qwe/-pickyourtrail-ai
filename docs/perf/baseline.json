@@ -1,0 +1,227 @@
+{
+  "at": "2026-10-21T06:49:07.551Z",
+  "base": "http://localhost:3200",
+  "iterations": 60,
+  "results": [
+    {
+      "name": "GET /api/trips (customer list)",
+      "n": 60,
+      "errors": 0,
+      "p50": 16.2,
+      "p95": 18.2,
+      "serverP50": 1,
+      "serverP95": 1.6,
+      "dbMean": 0.6,
+      "queries": 2
+    },
+    {
+      "name": "GET /api/trips/preferences/:id (planner snapshot)",
+      "n": 60,
+      "errors": 0,
+      "p50": 14.9,
+      "p95": 19.9,
+      "serverP50": 1.6,
+      "serverP95": 2.2,
+      "dbMean": 1,
+      "queries": 12
+    },
+    {
+      "name": "GET /api/trips/:id (trip detail)",
+      "n": 60,
+      "errors": 0,
+      "p50": 15.4,
+      "p95": 17.4,
+      "serverP50": 1.7,
+      "serverP95": 2.3,
+      "dbMean": 0.8,
+      "queries": 8
+    },
+    {
+      "name": "GET /api/itineraries/:id",
+      "n": 60,
+      "errors": 0,
+      "p50": 16,
+      "p95": 18.8,
+      "serverP50": 1.1,
+      "serverP95": 2.1,
+      "dbMean": 0.7,
+      "queries": 6
+    },
+    {
+      "name": "GET /api/destinations",
+      "n": 60,
+      "errors": 0,
+      "p50": 14.9,
+      "p95": 17.6,
+      "serverP50": 0.6,
+      "serverP95": 1,
+      "dbMean": 0.2,
+      "queries": 1
+    },
+    {
+      "name": "GET /api/support/tickets (customer)",
+      "n": 60,
+      "errors": 0,
+      "p50": 15.9,
+      "p95": 19.7,
+      "serverP50": 0.9,
+      "serverP95": 1.4,
+      "dbMean": 0.6,
+      "queries": 2
+    },
+    {
+      "name": "GET /api/dashboard/overview",
+      "n": 60,
+      "errors": 0,
+      "p50": 14.8,
+      "p95": 20.6,
+      "serverP50": 4,
+      "serverP95": 6,
+      "dbMean": 3.2,
+      "queries": 42
+    },
+    {
+      "name": "GET /api/analytics/reports",
+      "n": 60,
+      "errors": 0,
+      "p50": 15.7,
+      "p95": 21.2,
+      "serverP50": 4.7,
+      "serverP95": 6,
+      "dbMean": 3.7,
+      "queries": 58
+    },
+    {
+      "name": "GET /api/leads (page 1)",
+      "n": 60,
+      "errors": 0,
+      "p50": 14.5,
+      "p95": 17.6,
+      "serverP50": 0.9,
+      "serverP95": 1.7,
+      "dbMean": 0.6,
+      "queries": 3
+    },
+    {
+      "name": "GET /api/leads/:id",
+      "n": 60,
+      "errors": 0,
+      "p50": 15.2,
+      "p95": 19,
+      "serverP50": 2.1,
+      "serverP95": 2.7,
+      "dbMean": 1.1,
+      "queries": 12
+    },
+    {
+      "name": "GET /api/support/tickets (ops queue)",
+      "n": 60,
+      "errors": 0,
+      "p50": 15,
+      "p95": 17.4,
+      "serverP50": 0.9,
+      "serverP95": 1.4,
+      "dbMean": 0.7,
+      "queries": 3
+    },
+    {
+      "name": "GET /api/support/tickets/:id",
+      "n": 60,
+      "errors": 0,
+      "p50": 16,
+      "p95": 17.9,
+      "serverP50": 0.9,
+      "serverP95": 1.1,
+      "dbMean": 0.6,
+      "queries": 4
+    },
+    {
+      "name": "GET /api/trips?scope=all",
+      "n": 60,
+      "errors": 0,
+      "p50": 10.3,
+      "p95": 17.9,
+      "serverP50": 1.5,
+      "serverP95": 1.9,
+      "dbMean": 1,
+      "queries": 3
+    },
+    {
+      "name": "GET /api/operations/handoffs",
+      "n": 60,
+      "errors": 0,
+      "p50": 13.1,
+      "p95": 18.1,
+      "serverP50": 1.1,
+      "serverP95": 1.6,
+      "dbMean": 0.7,
+      "queries": 4
+    },
+    {
+      "name": "GET /api/command/overview",
+      "n": 60,
+      "errors": 0,
+      "p50": 14.2,
+      "p95": 20.3,
+      "serverP50": 3.2,
+      "serverP95": 4.2,
+      "dbMean": 2.7,
+      "queries": 16
+    },
+    {
+      "name": "GET /api/notifications",
+      "n": 60,
+      "errors": 0,
+      "p50": 15.1,
+      "p95": 19.2,
+      "serverP50": 1.3,
+      "serverP95": 2,
+      "dbMean": 0.9,
+      "queries": 10
+    },
+    {
+      "name": "GET /api/search?q=ba",
+      "n": 60,
+      "errors": 0,
+      "p50": 15,
+      "p95": 19,
+      "serverP50": 2.7,
+      "serverP95": 3.6,
+      "dbMean": 2.2,
+      "queries": 7
+    },
+    {
+      "name": "GET /api/customers",
+      "n": 60,
+      "errors": 0,
+      "p50": 15.2,
+      "p95": 19.3,
+      "serverP50": 3.1,
+      "serverP95": 4.2,
+      "dbMean": 2.6,
+      "queries": 3
+    },
+    {
+      "name": "POST /api/ai/chat (planner turn, mock AI)",
+      "n": 20,
+      "errors": 0,
+      "p50": 30.7,
+      "p95": 39.4,
+      "serverP50": 17,
+      "serverP95": 22.5,
+      "dbMean": 12.1,
+      "queries": 26.3
+    },
+    {
+      "name": "POST /api/command/chat (mock AI)",
+      "n": 20,
+      "errors": 0,
+      "p50": 23.5,
+      "p95": 34.4,
+      "serverP50": 12.2,
+      "serverP95": 13.9,
+      "dbMean": 10.6,
+      "queries": 12
+    }
+  ]
+}
