@@ -214,3 +214,4 @@ See [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) for design and cost controls, a
 - Approval requests expire after one hour.
 - Prices and exchange rates are fixed demo values; there is no live availability.
 - No Content-Security-Policy header yet (basic security headers are set).
+"# -pickyourtrail-ai" 
