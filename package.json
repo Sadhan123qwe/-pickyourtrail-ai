@@ -14,6 +14,8 @@
     "db:reset": "tsx --conditions=react-server scripts/db-reset.ts",
     "db:retention": "tsx --conditions=react-server scripts/db-retention.ts",
     "bench": "node scripts/bench.mjs",
+    "demo:video": "node scripts/demo-video.mjs",
+    "demo:voice-video": "node scripts/demo-voice-video.mjs",
     "ai:check": "tsx --conditions=react-server scripts/ai-check.ts",
     "test:live": "vitest run --config vitest.live.config.mts",
     "check:secrets": "node scripts/check-client-secrets.mjs",

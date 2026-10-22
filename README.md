@@ -90,6 +90,8 @@ The planner has a speech-to-speech assistant shown as the approved Pickyourtrail
 | `npm run ai:check` | Verifies the live OpenAI connection (models, one structured request, one voice session); PASS / FAIL / BLOCKED, never prints keys |
 | `npm run test:live` | Live OpenAI integration tests (real, billable requests); reported as skipped/blocked without a key |
 | `npm run bench` | API latency benchmark against a running server (see [docs/PERFORMANCE.md](docs/PERFORMANCE.md)) |
+| `npm run demo:video` | Records a captioned chat → itinerary → CRM → Copilot → Support Ops walkthrough to `demo-video/` (needs `npm run build` first; demo mode, no OpenAI calls). With a full ffmpeg (`FFMPEG_PATH`) it writes MP4, otherwise WebM — see [docs/DEMO_VIDEO.md](docs/DEMO_VIDEO.md) |
+| `npm run demo:voice-video` | Records a labelled voice-planning reenactment with two synthesized voices (customer + AI robot) to `demo-video/` (Windows only; demo mode, no OpenAI calls) |
 | `npm run check:secrets` | Scans the built browser bundle (`.next/static`) for secret keys, client reads of server-only env vars and `NEXT_PUBLIC_` secrets; prints only file and rule names |
 | `npm run verify` | lint → typecheck → tests → build → secret check |
 
